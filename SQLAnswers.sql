@@ -35,3 +35,19 @@ select PP.FirstName, PP.LastName, JobTitle from HumanResources.Employee as HRE I
 
 
 
+--13
+--a
+select PP.FirstName, PP.LastName, JobTitle from HumanResources.Employee as HRE Inner Join Person.Person as PP On HRE.BusinessEntityID = PP.BusinessEntityID Where PP.FirstName = 'John' and PP.LastName = 'Evans'
+
+--b
+select PP.FirstName, PP.LastName, JobTitle, HRD.Name as Dept_Name
+from HumanResources.Employee as HRE 
+Inner Join Person.Person as PP 
+On HRE.BusinessEntityID = PP.BusinessEntityID 
+Inner Join HumanResources.EmployeeDepartmentHistory as HREDH
+On HRE.BusinessEntityID = HREDH.BusinessEntityID
+Inner Join HumanResources.Department as HRD
+On HREDH.DepartmentID = HRD.DepartmentID
+Where PP.FirstName = 'John' and PP.LastName = 'Evans'
+
+
