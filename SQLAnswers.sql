@@ -1,3 +1,4 @@
+USE AdventureWorks2019;
 --Question 11
 --a
 Select count(NationalIDNumber) as Number_Of_Employees from HumanResources.Employee;
@@ -49,5 +50,37 @@ On HRE.BusinessEntityID = HREDH.BusinessEntityID
 Inner Join HumanResources.Department as HRD
 On HREDH.DepartmentID = HRD.DepartmentID
 Where PP.FirstName = 'John' and PP.LastName = 'Evans'
+
+
+--14
+--a
+select Name, AccountNumber, CreditRating from Purchasing.Vendor order by CreditRating Desc;
+
+--b
+select Name, AccountNumber, CreditRating, PreferredVendorStatus from Purchasing.Vendor order by CreditRating Desc;
+
+--c resetting
+Update Purchasing.Vendor
+Set PreferredVendorStatus =
+Case 
+	When PreferredVendorStatus = 'Preferred' Then 1 
+	When PreferredVendorStatus = 'Not Preferred' Then 0 
+End 
+from Purchasing.Vendor;
+
+--c setting
+Update Purchasing.Vendor
+Set PreferredVendorStatus =
+Case 
+	When PreferredVendorStatus = 1 Then 'Preferred' 
+	When PreferredVendorStatus =  0 Then 'Not Preferred'
+End 
+from Purchasing.Vendor;
+
+
+--d
+select Count(Name) as Count_Active_Preferred from Purchasing.Vendor where ActiveFlag = 1 and PreferredVendorStatus = 'Preferred';
+
+
 
 
