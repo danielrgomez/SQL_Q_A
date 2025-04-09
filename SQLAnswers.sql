@@ -83,4 +83,20 @@ select Count(Name) as Count_Active_Preferred from Purchasing.Vendor where Active
 
 
 
+--15
+--a
+Select NationalIDNumber, BirthDate, DATEDIFF(YEAR,BirthDate,'08-15-2014') Age from HumanResources.Employee as HRE
+Select NationalIDNumber, BirthDate, Cast(DATEDIFF(YEAR,BirthDate,'08-15-2014') as decimal) Age from HumanResources.Employee as HRE order by Age desc;
 
+
+--b
+Select OrganizationLevel, Avg(cast(DATEDIFF(YEAR,BirthDate,'08-15-2014') as decimal)) as Age from HumanResources.Employee as HRE Group By OrganizationLevel;
+
+--c
+Select OrganizationLevel, Ceiling(Avg(cast(DATEDIFF(YEAR,BirthDate,'08-15-2014') as decimal))) as Age from HumanResources.Employee as HRE Group By OrganizationLevel;
+
+--d
+Select OrganizationLevel, Floor(Avg(cast(DATEDIFF(YEAR,BirthDate,'08-15-2014') as decimal))) as Age from HumanResources.Employee as HRE Group By OrganizationLevel;
+
+
+Select OrganizationLevel, Ceiling(Avg(cast(DATEDIFF(YEAR,BirthDate,'08-15-2014') as decimal))) as AgeCeiling, Floor(Avg(cast(DATEDIFF(YEAR,BirthDate,'08-15-2014') as decimal))) as AgeFloor from HumanResources.Employee as HRE Group By OrganizationLevel;
