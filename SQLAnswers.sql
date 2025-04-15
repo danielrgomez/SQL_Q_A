@@ -100,3 +100,18 @@ Select OrganizationLevel, Floor(Avg(cast(DATEDIFF(YEAR,BirthDate,'08-15-2014') a
 
 
 Select OrganizationLevel, Ceiling(Avg(cast(DATEDIFF(YEAR,BirthDate,'08-15-2014') as decimal))) as AgeCeiling, Floor(Avg(cast(DATEDIFF(YEAR,BirthDate,'08-15-2014') as decimal))) as AgeFloor from HumanResources.Employee as HRE Group By OrganizationLevel;
+
+
+
+--16
+-- a
+select count(ProductID) ProductCount from Production.Product
+
+--b
+select count(ProductID) ProductCount from Production.Product where FinishedGoodsFlag = 1;
+
+--c
+select 
+count(case when Makeflag = 1 Then ProductID Else Null End) as CountInHouse,
+count(case when Makeflag = 0 Then ProductID Else Null End) as CountPurchased
+from Production.Product where FinishedGoodsFlag = 1;
