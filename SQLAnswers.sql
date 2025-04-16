@@ -115,3 +115,18 @@ select
 count(case when Makeflag = 1 Then ProductID Else Null End) as CountInHouse,
 count(case when Makeflag = 0 Then ProductID Else Null End) as CountPurchased
 from Production.Product where FinishedGoodsFlag = 1;
+
+
+--17
+--a
+Select Format(sum(LineTotal),'C') from Sales.SalesOrderDetail
+
+--b
+Select Format(Sum(LineTotal),'C') as LineTotalAmt,(Case When MakeFlag = 1 Then 'Manufactured' Else 'Purchased' End) as MakeFlagCase From Production.Product as PP Inner Join Sales.SalesOrderDetail as SSOD On PP.ProductID = SSOD.ProductID Group By (Case When MakeFlag = 1 Then 'Manufactured' Else 'Purchased' End)
+
+--c
+Select Count(Distinct SSOD.SalesOrderID) as DistinctSalesOrderID, Format(Sum(LineTotal),'C') as LineTotalAmt,(Case When MakeFlag = 1 Then 'Manufactured' Else 'Purchased' End) as MakeFlagCase From Production.Product as PP Inner Join Sales.SalesOrderDetail as SSOD On PP.ProductID = SSOD.ProductID Group By (Case When MakeFlag = 1 Then 'Manufactured' Else 'Purchased' End)
+
+--d
+Select Distinct SSOD.SalesOrderID as DistinctSalesOrderID, Format(avg(LineTotal),'C') AvgLineTotal From Sales.SalesOrderDetail as SSOD Group By SSOD.SalesOrderID
+
