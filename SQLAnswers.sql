@@ -130,3 +130,50 @@ Select Count(Distinct SSOD.SalesOrderID) as DistinctSalesOrderID, Format(Sum(Lin
 --d
 Select Distinct SSOD.SalesOrderID as DistinctSalesOrderID, Format(avg(LineTotal),'C') AvgLineTotal From Sales.SalesOrderDetail as SSOD Group By SSOD.SalesOrderID
 
+
+
+--18
+--a
+select * from Production.TransactionHistoryArchive
+
+
+Select 
+	Case 
+		When TransactionType = 'W' Then 'WorkOrder' 
+		When TransactionType = 'S' Then 'SalesOrder'
+		When TransactionType = 'P' Then 'PurchaseOrder' 
+	End
+From Production.TransactionHistory
+
+--b
+select * from Production.TransactionHistory as PTH Union Select * from Production.TransactionHistoryArchive as PTHA
+
+
+--c
+Select Min(TransactionDate) as MinTransDate, Max(TransactionDate) as MaxTransDate From (
+Select TransactionDate from Production.TransactionHistory as PTH 
+Union 
+Select TransactionDate from Production.TransactionHistoryArchive as PTHA) as union_result;
+
+
+
+
+--d
+Select 
+	(Case 
+		When TransactionType = 'W' Then 'WorkOrder' 
+		When TransactionType = 'S' Then 'SalesOrder'
+		When TransactionType = 'P' Then 'PurchaseOrder' 
+	End) TransactionTypeName, 
+Max(TransactionDate) MinTransDate, 
+Min(TransactionDate) MaxTransDate
+From (
+	Select TransactionType, TransactionDate from Production.TransactionHistory as PTH 
+	Union 
+	Select TransactionType, TransactionDate from Production.TransactionHistoryArchive as PTHA
+	) as union_result
+	Group By TransactionType;
+
+
+
+
