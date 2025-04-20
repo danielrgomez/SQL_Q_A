@@ -181,5 +181,11 @@ From (
 Select format(min(OrderDate),'yyyy-MM-dd'), format(max(OrderDate),'yyyy-MM-dd') from Sales.SalesOrderHeader
 
 --20
+--a
+Select format(min(OrderDate),'yyyy-MM-dd'), format(max(OrderDate),'yyyy-MM-dd') from Purchasing.PurchaseOrderHeader
+
+Select format(min(DueDate),'yyyy-MM-dd'), format(max(DueDate),'yyyy-MM-dd') from Production.Workorder
+
+--b
 
 --21
