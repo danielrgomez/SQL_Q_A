@@ -189,3 +189,21 @@ Select format(min(DueDate),'yyyy-MM-dd'), format(max(DueDate),'yyyy-MM-dd') from
 --b
 
 --21
+--a
+Select Name, CountryRegionCode from Person.StateProvince
+
+
+--b
+Select PSP.Name, CountryRegionCode, TaxRate from Person.StateProvince as PSP Left Join Sales.SalesTaxRate as SSTR On PSP.StateProvinceID = SSTR.StateProvinceID
+
+--c
+Select PSP.Name, CountryRegionCode, count(TaxRate) TaxRateCount, PSP.StateProvinceID from Person.StateProvince as PSP Left Join Sales.SalesTaxRate as SSTR On PSP.StateProvinceID = SSTR.StateProvinceID Group By PSP.Name, CountryRegionCode, PSP.StateProvinceID Order By count(TaxRate) desc;
+
+
+--d
+Select Top 1 PSP.Name, CountryRegionCode, TaxRate from Person.StateProvince as PSP Left Join Sales.SalesTaxRate as SSTR On PSP.StateProvinceID = SSTR.StateProvinceID Order By TaxRate Desc;
+
+
+
+
+--22
