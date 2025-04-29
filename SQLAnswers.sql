@@ -207,3 +207,8 @@ Select Top 1 PSP.Name, CountryRegionCode, TaxRate from Person.StateProvince as P
 
 
 --22
+--a
+Select count(BusinessEntityID) CustomerCount from Person.Person where PersonType = 'IN'
+
+--b
+--Select count(BusinessEntityID) CustomerCount from Person.Person as PP Inner Join Sales.Customer as SC On PP.BusinessEntityID = SC.CustomerID
