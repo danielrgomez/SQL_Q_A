@@ -212,3 +212,8 @@ Select count(BusinessEntityID) CustomerCount from Person.Person where PersonType
 
 --b
 --Select count(BusinessEntityID) CustomerCount from Person.Person as PP Inner Join Sales.Customer as SC On PP.BusinessEntityID = SC.CustomerID
+
+--c
+
+
+--23
