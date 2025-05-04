@@ -217,3 +217,5 @@ Select count(BusinessEntityID) CustomerCount from Person.Person where PersonType
 
 
 --23
+
+--24
