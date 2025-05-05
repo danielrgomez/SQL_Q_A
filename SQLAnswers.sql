@@ -210,11 +210,33 @@ Select Top 1 PSP.Name, CountryRegionCode, TaxRate from Person.StateProvince as P
 --a
 Select count(BusinessEntityID) CustomerCount from Person.Person where PersonType = 'IN'
 
+
+
 --b
 --Select count(BusinessEntityID) CustomerCount from Person.Person as PP Inner Join Sales.Customer as SC On PP.BusinessEntityID = SC.CustomerID
+Select PCR.Name as CountryName, count(PP.BusinessEntityID) as CountOfPeople from Person.Person as PP 
+Inner Join Person.BusinessEntity as PBE On PP.BusinessEntityID = PBE.BusinessEntityID 
+Inner Join Person.BusinessEntityAddress as PBEA On PP.BusinessEntityID = PBEA.BusinessEntityID 
+Inner Join Person.Address as PA On PA.AddressID = PBEA.AddressID
+Inner Join Person.StateProvince as PSP On PSP.StateProvinceID = PA.StateProvinceID
+Inner Join Person.CountryRegion as PCR On PSP.CountryRegionCode = PCR.CountryRegionCode
+Where PP.PersonType = 'IN'
+Group By PCR.Name
+
 
 --c
-
+Select 
+PCR.Name as CountryName, 
+count(PP.BusinessEntityID) as CountOfPeople,
+Format(Cast(count(Distinct PP.BusinessEntityID) as float) / (Select Count(BusinessEntityID) from Person.Person as PP Where PP.PersonType = 'IN'),'P') as PercentageOfPop
+from Person.Person as PP 
+Inner Join Person.BusinessEntity as PBE On PP.BusinessEntityID = PBE.BusinessEntityID 
+Inner Join Person.BusinessEntityAddress as PBEA On PP.BusinessEntityID = PBEA.BusinessEntityID 
+Inner Join Person.Address as PA On PA.AddressID = PBEA.AddressID
+Inner Join Person.StateProvince as PSP On PSP.StateProvinceID = PA.StateProvinceID
+Inner Join Person.CountryRegion as PCR On PSP.CountryRegionCode = PCR.CountryRegionCode
+Where PP.PersonType = 'IN'
+Group By PCR.Name
 
 --23
 
