@@ -239,6 +239,25 @@ Where PP.PersonType = 'IN'
 Group By PCR.Name
 
 --23
+DECLARE @TotalRetailCustomers float;
+SET @TotalRetailCustomers = (Select count(BusinessEntityID) from Person.Person Where PersonType = 'IN');
+
+Select 
+	cr.Name as Country
+	,Format(count(Distinct p.BusinessEntityID),'N0') as CNT
+	,Format(Cast(count(Distinct p.BusinessEntityID) as float)
+		/
+			@TotalRetailCustomers,'P') as '%ofTotal'
+ 
+from Person.Person p
+	Inner Join Person.BusinessEntityAddress bea on bea.BusinessEntityID = p.BusinessEntityID
+	Inner Join Person.Address a on a.AddressID = bea.AddressID
+	Inner Join Person.StateProvince sp on sp.StateProvinceID = a.StateProvinceID
+	Inner Join Person.CountryRegion cr on cr.CountryRegionCode = sp.CountryRegionCode
+Where PersonType = 'IN'
+Group by cr.Name
+Order by 2 desc
+
 
 --24
 
