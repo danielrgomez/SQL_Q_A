@@ -260,6 +260,20 @@ Order by 2 desc
 
 
 --24
+--a
+Select SalesOrderID, TotalDue, SubTotal, (TotalDue - SubTotal) SubtractAmt, TaxAmt, Freight, (TaxAmt + Freight) TxPlusFreight from Sales.SalesOrderHeader Where SalesOrderID = '69411'
+
+
+--b
+Select SalesOrderID, Sum(LineTotal) SubTotal from Sales.SalesOrderDetail Where SalesOrderid = '69411' Group By SalesOrderID
+
+--c
+Select TotalDue, (Subtotal + Freight + TaxAmt) TotalDueCalculation From Sales.SalesOrderHeader Where SalesOrderID = '69411'
+
+--d
+Select * from Sales.SalesOrderDetail Where SalesOrderID = '69411'
+Select productID, (OrderQty * UnitPrice) LineTotalCalc from Sales.SalesOrderDetail Where SalesOrderID = '69411'
+
 
 --25
 
