@@ -274,7 +274,6 @@ Select TotalDue, (Subtotal + Freight + TaxAmt) TotalDueCalculation From Sales.Sa
 Select * from Sales.SalesOrderDetail Where SalesOrderID = '69411'
 Select productID, (OrderQty * UnitPrice) LineTotalCalc from Sales.SalesOrderDetail Where SalesOrderID = '69411'
 
-
 --25
 
 --26
