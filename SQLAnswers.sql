@@ -279,3 +279,31 @@ Select Name, ProductId, (ListPrice - StandardCost) NetRev from Production.Produc
 
 
 --26
+--a
+select ProductSubcategoryID from Production.Product where Name like 'Mountain-100%' Group By ProductSubcategoryID;
+
+--b 21 special offers
+select PP.ProductID, Name, Color, SSOP.SpecialOfferID, SSO.StartDate, SSO.EndDate, SSO.Description from Production.Product PP
+Inner Join Sales.SpecialOfferProduct SSOP On PP.ProductID = SSOP.ProductID
+Inner Join Sales.SpecialOffer SSO On SSOP.SpecialOfferID = SSO.SpecialOfferID
+where Name like 'Mountain-100%'
+
+
+--c
+select PP.ProductID, Name, Color, SSOP.SpecialOfferID, PP.DiscontinuedDate, PP.SellEndDate, SSO.StartDate, SSO.EndDate, SSO.Description from Production.Product PP
+Inner Join Sales.SpecialOfferProduct SSOP On PP.ProductID = SSOP.ProductID
+Inner Join Sales.SpecialOffer SSO On SSOP.SpecialOfferID = SSO.SpecialOfferID
+where Name like 'Mountain-100%'
+Order by StartDate Desc;
+
+
+
+--d
+Select SSOH.SalesOrderID, OrderDate, PP.ProductID, PP.Name from Sales.SalesOrderHeader SSOH
+Inner Join Sales.SalesOrderDetail SSOD On SSOH.SalesOrderID = SSOD.SalesOrderID
+Inner Join Production.Product PP On SSOD.ProductID = PP.ProductID
+Where PP.Name like 'Mountain-100%'
+Order by OrderDate Desc;
+
+
+
